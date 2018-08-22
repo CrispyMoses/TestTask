@@ -1,3 +1,5 @@
+package view;
+
 import com.toedter.calendar.JDateChooser;
 import service.CalculationService;
 
@@ -10,8 +12,8 @@ import java.util.Date;
 public class Gui extends JFrame {
 
     private JButton recalculateButton = new JButton("Recalculate");
-    private JTextField amountInput = new JTextField("", 5);
-    private JTextField result = new JTextField("", 5);
+    private JTextField amountInput = new JTextField("");
+    private JTextField result = new JTextField("");
     private JLabel dateLabel = new JLabel("Date:");
     private JLabel amountLabel = new JLabel("Amount USD:");
     private JLabel resultLabel = new JLabel("Result:");

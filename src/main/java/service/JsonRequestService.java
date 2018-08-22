@@ -34,8 +34,7 @@ public class JsonRequestService {
     }
 
     public String getUsdPrice() throws Exception {
-        String link = "https://openexchangerates.org/api/latest.json?" +
-                "app_id=" + properties.getProperty(OPENEXCHANGE_KEY);
+        String link = "https://openexchangerates.org/api/latest.json?app_id=" + properties.getProperty(OPENEXCHANGE_KEY);
 
         return getPriceByLink(link);
     }
