@@ -15,7 +15,7 @@ import java.util.Properties;
 public class JsonRequestService {
 
     private static final String PATH_TO_PROPERTIES = "src/main/resources/keys.properties";
-    private static final String FIXER_KEY = "fixer";
+    private static final String OPENEXCHANGE_KEY = "openexchange";
 
     private Properties properties;
 
@@ -25,18 +25,17 @@ public class JsonRequestService {
     }
 
 
-    public String getUsdPriceByDate(Date date) throws Exception {
+    public String getUsdPrice(Date date) throws Exception {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String link = String.format("http://data.fixer.io/api/%s?access_key=%s&symbols=USD",
-                sdf.format(date), properties.getProperty(FIXER_KEY));
+        String link = String.format("https://openexchangerates.org/api/historical/%s.json?app_id=%s",
+                sdf.format(date), properties.getProperty(OPENEXCHANGE_KEY));
 
         return getPriceByLink(link);
     }
 
-    public String getLatestUsdPrice() throws Exception {
-        String link = "http://data.fixer.io/api/latest?" +
-                "access_key=" + properties.getProperty(FIXER_KEY) +
-                "&symbols=USD";
+    public String getUsdPrice() throws Exception {
+        String link = "https://openexchangerates.org/api/latest.json?" +
+                "app_id=" + properties.getProperty(OPENEXCHANGE_KEY);
 
         return getPriceByLink(link);
     }
@@ -52,6 +51,6 @@ public class JsonRequestService {
             json.append(line);
         }
 
-        return JsonPath.read(json.toString(), "$.rates.USD").toString();
+        return JsonPath.read(json.toString(), "$.rates.RUB").toString();
     }
 }

@@ -15,8 +15,8 @@ public class CalculationService {
     }
 
     public String calculateDifference(Date date, String stringAmount) throws Exception {
-        BigDecimal currentPrice = new BigDecimal(requestService.getLatestUsdPrice());
-        BigDecimal historyPrice = new BigDecimal(requestService.getUsdPriceByDate(date));
+        BigDecimal currentPrice = new BigDecimal(requestService.getUsdPrice());
+        BigDecimal historyPrice = new BigDecimal(requestService.getUsdPrice(date));
         BigDecimal amount = new BigDecimal(stringAmount);
         BigDecimal spread = new BigDecimal(SPREAD);
 
