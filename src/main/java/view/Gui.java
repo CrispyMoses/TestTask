@@ -13,7 +13,7 @@ public class Gui extends JFrame {
 
     private JButton recalculateButton = new JButton("Recalculate");
     private JTextField amountInput = new JTextField("");
-    private JTextField result = new JTextField("");
+    private JTextField resultField = new JTextField("");
     private JLabel dateLabel = new JLabel("Date:");
     private JLabel amountLabel = new JLabel("Amount USD:");
     private JLabel resultLabel = new JLabel("Result:");
@@ -36,11 +36,10 @@ public class Gui extends JFrame {
         container.add(amountInput);
         container.add(resultLabel);
 
-        result.setEditable(false);
-        container.add(result);
+        resultField.setEditable(false);
+        container.add(resultField);
 
         recalculateButton.addActionListener(this::event);
-
         container.add(recalculateButton);
     }
 
@@ -49,7 +48,7 @@ public class Gui extends JFrame {
         recalculateButton.setEnabled(false);
         try {
             CalculationService calculationService = new CalculationService();
-            result.setText(calculationService.calculateDifference(dateChooser.getDate(), amountInput.getText()));
+            resultField.setText(calculationService.calculateDifference(dateChooser.getDate(), amountInput.getText()));
         } catch (Exception exc) {
             JOptionPane.showMessageDialog(this, "Произошла ошибка. Попробуйте ещё раз.");
             exc.printStackTrace();
