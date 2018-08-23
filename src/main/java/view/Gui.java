@@ -1,6 +1,5 @@
 package view;
 
-import com.toedter.calendar.JDateChooser;
 import service.CalculationService;
 
 import javax.swing.*;
@@ -17,7 +16,7 @@ public class Gui extends JFrame {
     private JLabel dateLabel = new JLabel("Date:");
     private JLabel amountLabel = new JLabel("Amount USD:");
     private JLabel resultLabel = new JLabel("Result:");
-    private JDateChooser dateChooser = new JDateChooser(new Date());
+    private JSpinner dateChooser;
 
     public Gui() {
         super("Test Task");
@@ -31,7 +30,11 @@ public class Gui extends JFrame {
         Container container = this.getContentPane();
         container.setLayout(new GridLayout(8,1,2,2));
         container.add(dateLabel);
+
+        dateChooser = new JSpinner(new SpinnerDateModel());
+        dateChooser.setEditor(new JSpinner.DateEditor(dateChooser, "dd.MM.yyyy"));
         container.add(dateChooser);
+
         container.add(amountLabel);
         container.add(amountInput);
         container.add(resultLabel);
@@ -48,9 +51,9 @@ public class Gui extends JFrame {
         recalculateButton.setEnabled(false);
         try {
             CalculationService calculationService = new CalculationService();
-            resultField.setText(calculationService.calculateDifference(dateChooser.getDate(), amountInput.getText()));
+            resultField.setText(calculationService.calculateDifference((Date) dateChooser.getValue(), amountInput.getText()));
         } catch (Exception exc) {
-            JOptionPane.showMessageDialog(this, "Произошла ошибка. Попробуйте ещё раз.");
+            JOptionPane.showMessageDialog(this, exc.toString());
             exc.printStackTrace();
         }
         recalculateButton.setEnabled(true);
