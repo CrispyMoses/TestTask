@@ -2,10 +2,7 @@ package service;
 
 import com.jayway.jsonpath.JsonPath;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.SimpleDateFormat;
@@ -14,14 +11,15 @@ import java.util.Properties;
 
 public class JsonRequestService {
 
-    private static final String PATH_TO_PROPERTIES = "src/main/resources/keys.properties";
     private static final String OPENEXCHANGE_KEY = "openexchange";
 
     private Properties properties;
 
     public JsonRequestService() throws IOException {
        properties = new Properties();
-       properties.load(new FileInputStream(PATH_TO_PROPERTIES));
+       ClassLoader loader = Thread.currentThread().getContextClassLoader();
+       InputStream inputStream = loader.getResourceAsStream("keys.properties");
+       properties.load(inputStream);
     }
 
 
